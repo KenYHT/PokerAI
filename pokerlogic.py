@@ -1,8 +1,8 @@
 value = {"A":0, "2":10, "3":20, "4":30, "5":40, "6":50, "7":60, "8":70, "9":80, "T":90, "J":100, "Q":110, "K":120}
 suit = {"C":1, "D":2, "H":3, "S":4}
-handHashTable = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} #ace through king, this is the default
-suitHashTable = {0, 0, 0, 0} #clubs, diamonds, hearts, spades in that order
-currentHand = {}
+handHashTable = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #ace through king, this is the default
+suitHashTable = {"C":0, "D":0, "H":0, "S":0} #clubs, diamonds, hearts, spades in that order
+currentHand = []
 
 
 def highAceHash():
@@ -14,22 +14,28 @@ def lowAceHash():
 def rankCard(card):
 	return value[card[0]] + suit[card[1]]
 
-def handRanking(handString, valueArray):
+def handRanking(valueArray):
 	for i in range(0, len(valueArray)):
 		handHashTable[valueArray[i] / 10] += 1
 
+	for i in range(0, len(currentHand)):
+		suitHashTable[(currentHand[i])[1]] += 1
+
 #resets our hand hash table to default
-def resetHash():
+def reset():
 	for i in range(0, len(handHashTable)):
 		handHashTable[i] = 0
 
 	for i in range(0, len(suitHashTable)):
 		suitHashTable[i] = 0
 
+	for i in range(0, len(currentHand)):
+		currentHand.pop()
+
 #checks our hand for a pair
 def existsPair():
 	for i in range(0, handHashtable):
-		if handHashTable[i] == 2
+		if handHashTable[i] == 2:
 			return True
 	return False
 
@@ -37,18 +43,18 @@ def existsPair():
 def existsTwoPairs():
 	pairs = 0
 	for i in range(0, len(handHashTable)):
-		if handHashTable[i] == 2
+		if handHashTable[i] == 2:
 			pairs++
 
-	if pairs >= 2
+	if pairs >= 2:
 		return True
-	else
+	else:
 		return False
 
 #checks for three-of-a-kind
 def existsTOaK():
 	for i in range(0, len(handHashTable)):
-		if handHashTable[i] == 3
+		if handHashTable[i] == 3:
 			return True
 	return False
 
@@ -78,15 +84,9 @@ def existsFOaK():
 
 #the inputs are cards. this function is where we figure out what hand we have
 def evaluateHand(currentHand):
-	valueArray = {}
+	valueArray = []
 	
-	z = 0
 	for j in currentHand:
-		valueArray[z] = rankCard(j)
-		z++
+		valueArray.append(rankCard(j));
 
 	sort(currentHand) 
-	handString = ""
-
-	for i in currentHand:
-		handString += i
