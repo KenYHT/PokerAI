@@ -3,6 +3,7 @@ suit = {"C":1, "D":2, "H":3, "S":4}
 handHashTable = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #ace through king, this is the default
 suitHashTable = {"C":0, "D":0, "H":0, "S":0} #clubs, diamonds, hearts, spades in that order
 currentHand = []
+finalValue = 0
 
 
 def highAceHash():
@@ -31,6 +32,8 @@ def reset():
 
 	for i in range(0, len(currentHand)):
 		currentHand.pop()
+
+	finalValue = 0
 
 #checks our hand for a pair
 def existsPair():
@@ -93,8 +96,23 @@ def existsFOaK():
 #the inputs are cards. this function is where we figure out what hand we have
 def evaluateHand(currentHand):
 	valueArray = []
-	
 	for j in currentHand:
 		valueArray.append(rankCard(j))
 
-	sort(currentHand) 
+	initHash(valueArray)
+	if existsFOaK() == True:
+		finalValue = 7
+	elif existsFullHouse() == True:
+		finalValue = 6
+	elif existsFlush() == True:
+		finalValue = 5
+	elif existsStraight() == True:
+		finalValue = 4
+	elif existsTOaK() == True:
+		finalValue = 3
+	elif existsTwoPairs() == True:
+		finalValue = 2
+	elif existsPair() == True:
+		finalValue = 1
+	else:
+		finalValue = 0
