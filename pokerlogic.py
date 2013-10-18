@@ -14,7 +14,7 @@ def lowAceHash():
 def rankCard(card):
 	return value[card[0]] + suit[card[1]]
 
-def handRanking(valueArray):
+def initHash(valueArray):
 	for i in range(0, len(valueArray)):
 		handHashTable[valueArray[i] / 10] += 1
 
@@ -58,13 +58,21 @@ def existsTOaK():
 			return True
 	return False
 
+#checks for straight
 def existsStraight():
 	for i in range(0, len(handHashTable) - 4):
 		if handHashTable[i] > 0 and handHashTable[i + 1] > 0 and handHashTable[i + 2] > 0 and handHashTable[i + 3] > 0 and handHashTable[i + 4] > 0:
 			return True
 	return False
 
-#checks for full hous
+#checks for flush
+def existsFlush():
+	for i in suitHashTable:
+		if suitHashTable[i] >= 5:
+			return True
+	return False
+
+#checks for full house
 def existsFullHouse():
 	pair = False
 	toak = False
@@ -78,7 +86,7 @@ def existsFullHouse():
 #checks for four-of-a-kind
 def existsFOaK():
 	for i in range(0, len(handHashTable)):
-		if handHashTable[i] == 4
+		if handHashTable[i] == 4:
 			return True
 	return False
 
@@ -87,6 +95,6 @@ def evaluateHand(currentHand):
 	valueArray = []
 	
 	for j in currentHand:
-		valueArray.append(rankCard(j));
+		valueArray.append(rankCard(j))
 
 	sort(currentHand) 
