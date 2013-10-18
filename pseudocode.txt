@@ -1,0 +1,22 @@
+if (deal)
+	if (all-in || raise >= 1/2 * our money)
+		fold
+	else
+		call/check
+else
+	if (finalValue == 7 || finalValue == 6)
+		raise 1/2 * our money
+	else if (finalValue == 5)
+		raise 1/3 * our money 75%
+		call/check 90%
+	else if (finalValue == 4)
+		raise 1/5 * our money 50%
+		call/check 85%
+	else if (finalValue == 3)
+		call/check 75%
+	else if (finalValue == 2)
+		call/check 60%
+	else if (finalValue == 1 && !(all-in || raise >= 1/2 * our money))
+		call/Check 50%
+	else
+		call/Check 30%
